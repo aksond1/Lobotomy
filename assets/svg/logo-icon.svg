@@ -1,0 +1,19 @@
+<svg
+        class="logo-icon"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 108.928 108.93"
+      >
+        <g
+          fill="none"
+          stroke="currentColor"
+          stroke-width="10"
+          stroke-miterlimit="10"
+        >
+          <path d="M6.464 38.465H70.464V102.465H6.464Z" />
+          <path d="M38.464 6.465H102.464V70.465H38.464Z" />
+          <path d="M5 37 37 5" />
+          <path d="m71.928 103.93 32-32" />
+          <path d="m11.464 97.46 32-32" />
+          <path d="m65.49 43.449 32-32" />
+        </g>
+      </svg>
