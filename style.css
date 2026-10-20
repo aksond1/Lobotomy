@@ -172,3 +172,16 @@ header {
   height: 20px;
   color: var(--color-text);
 }
+
+#btns {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+#btns > button > svg {
+  width: 24px;
+  height: 24px;
+  color: var(--color-text);
+}
