@@ -185,3 +185,13 @@ header {
   height: 24px;
   color: var(--color-text);
 }
+
+.ad-feed {
+  position: relative;
+  width: 100%;
+  height: calc(100dvh - var(--header-height, 81.6px));
+  box-sizing: border-box;
+  padding: 16px;
+  overflow: hidden;
+  isolation: isolate;
+}
