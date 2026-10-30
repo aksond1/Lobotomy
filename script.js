@@ -2,6 +2,41 @@ const header = document.querySelector("header");
 
 const feed = document.querySelector("#ad-feed");
 
+const shuffleBtn = document.querySelector(".shuffle");
+const logoBtn = document.querySelector("#logo");
+const themeToggle = document.querySelector(".theme-toggle");
+
+if (shuffleBtn) {
+  shuffleBtn.addEventListener("click", () => {
+    renderFeed();
+  });
+}
+
+if (logoBtn) {
+  logoBtn.style.cursor = "pointer";
+  logoBtn.addEventListener("click", () => {
+    window.location.reload();
+  });
+}
+
+const savedTheme = localStorage.getItem("theme");
+if (savedTheme) {
+  document.documentElement.setAttribute("data-theme", savedTheme);
+}
+
+if (themeToggle) {
+  themeToggle.addEventListener("click", () => {
+    const currentTheme = document.documentElement.getAttribute("data-theme");
+    if (currentTheme === "light") {
+      document.documentElement.removeAttribute("data-theme");
+      localStorage.setItem("theme", "dark");
+    } else {
+      document.documentElement.setAttribute("data-theme", "light");
+      localStorage.setItem("theme", "light");
+    }
+  });
+}
+
 function updateFeedHeight() {
   const headerHeight = header.getBoundingClientRect().height;
   feed.style.setProperty("--header-height", `${headerHeight}px`);
