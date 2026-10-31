@@ -37,14 +37,6 @@ if (themeToggle) {
   });
 }
 
-function updateFeedHeight() {
-  const headerHeight = header.getBoundingClientRect().height;
-  feed.style.setProperty("--header-height", `${headerHeight}px`);
-}
-
-updateFeedHeight();
-window.addEventListener("resize", updateFeedHeight);
-
 const INITIAL_CARDS = 28;
 const GAP = 5;
 
