@@ -279,11 +279,11 @@ header {
   color: var(--color-text-dark);
   cursor: default;
   transition:
-    opacity 150ms ease,
-    transform 150ms ease;
+    opacity 300ms ease,
+    transform 300ms ease;
 }
 
-.ad-block:hover {
+.ad-block.is-hovered {
   z-index: 10000 !important;
 }
 

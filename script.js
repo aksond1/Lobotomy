@@ -48,14 +48,14 @@ const formats = [
 ];
 
 const colors = [
-  "#e76f51",
-  "#e9c46a",
-  "#457b9d",
-  "#8ab17d",
+  "#e0694b",
+  "#e6be5b",
+  "#407799",
+  "#6bb353",
   "#9b5de5",
-  "#f4a261",
+  "#ee964e",
   "#e63946",
-  "#2a9d8f",
+  "#27998c",
 ];
 
 const ads = [
@@ -303,6 +303,17 @@ function createCard(anchor = null) {
 
   element.querySelector(".ad-close").addEventListener("click", () => {
     closeCard(card);
+  });
+
+  let hoverTimer = null;
+  element.addEventListener("mouseenter", () => {
+    hoverTimer = setTimeout(() => {
+      element.classList.add("is-hovered");
+    }, 180);
+  });
+  element.addEventListener("mouseleave", () => {
+    clearTimeout(hoverTimer);
+    element.classList.remove("is-hovered");
   });
 
   feed.appendChild(element);
