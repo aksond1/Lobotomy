@@ -1,43 +1,16 @@
-const header = document.querySelector("header");
-
 const feed = document.querySelector("#ad-feed");
-
+const searchBox = document.querySelector("#search-box");
+const subscriptionOverlay = document.querySelector(".subscription-overlay");
+const subscriptionButtons = document.querySelectorAll(
+  ".subscription-footer button",
+);
+const subscriptionClose = document.querySelector(".subscription-close");
+const subscriptionMessage = document.querySelector(".subscription-message");
+const messageClose = document.querySelector(".message-close");
 const shuffleBtn = document.querySelector(".shuffle");
 const logoBtn = document.querySelector("#logo");
 const themeToggle = document.querySelector(".theme-toggle");
 
-if (shuffleBtn) {
-  shuffleBtn.addEventListener("click", () => {
-    renderFeed();
-  });
-}
-
-if (logoBtn) {
-  logoBtn.style.cursor = "pointer";
-  logoBtn.addEventListener("click", () => {
-    window.location.reload();
-  });
-}
-
-const savedTheme = localStorage.getItem("theme");
-if (savedTheme) {
-  document.documentElement.setAttribute("data-theme", savedTheme);
-}
-
-if (themeToggle) {
-  themeToggle.addEventListener("click", () => {
-    const currentTheme = document.documentElement.getAttribute("data-theme");
-    if (currentTheme === "light") {
-      document.documentElement.removeAttribute("data-theme");
-      localStorage.setItem("theme", "dark");
-    } else {
-      document.documentElement.setAttribute("data-theme", "light");
-      localStorage.setItem("theme", "light");
-    }
-  });
-}
-
-const INITIAL_CARDS = 28;
 const GAP = 5;
 
 const formats = [
@@ -48,14 +21,14 @@ const formats = [
 ];
 
 const colors = [
-  "#e0694b",
-  "#e6be5b",
-  "#407799",
-  "#6bb353",
-  "#9b5de5",
-  "#ee964e",
-  "#e63946",
-  "#27998c",
+  "#c73b18",
+  "#f0b727",
+  "#2f83b8",
+  "#4fac30",
+  "#8442d4",
+  "#cf7226",
+  "#e71d2e",
+  "#17a594",
 ];
 
 const ads = [
@@ -139,6 +112,79 @@ let zIndex = 1;
 let cellSize = 0;
 let screenWidth = 0;
 let screenHeight = 0;
+
+const savedTheme = localStorage.getItem("theme");
+if (savedTheme) {
+  document.documentElement.setAttribute("data-theme", savedTheme);
+}
+
+if (themeToggle) {
+  themeToggle.addEventListener("click", () => {
+    const currentTheme = document.documentElement.getAttribute("data-theme");
+    if (currentTheme === "light") {
+      document.documentElement.removeAttribute("data-theme");
+      localStorage.setItem("theme", "dark");
+    } else {
+      document.documentElement.setAttribute("data-theme", "light");
+      localStorage.setItem("theme", "light");
+    }
+  });
+}
+
+function openSubscriptionOffers() {
+  subscriptionOverlay.classList.add("is-visible");
+}
+
+function closeSubscriptionOffers() {
+  subscriptionOverlay.classList.remove("is-visible");
+}
+
+searchBox.addEventListener("click", openSubscriptionOffers);
+
+subscriptionClose.addEventListener("click", closeSubscriptionOffers);
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") {
+    closeSubscriptionOffers();
+  }
+});
+
+subscriptionOverlay.addEventListener("click", (event) => {
+  if (event.target === subscriptionOverlay) {
+    closeSubscriptionOffers();
+  }
+});
+
+subscriptionButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    subscriptionMessage.classList.add("is-visible");
+  });
+});
+
+subscriptionMessage.addEventListener("click", (event) => {
+  if (event.target === subscriptionMessage) {
+    subscriptionMessage.classList.remove("is-visible");
+    closeSubscriptionOffers();
+  }
+});
+
+messageClose.addEventListener("click", () => {
+  subscriptionMessage.classList.remove("is-visible");
+  closeSubscriptionOffers();
+});
+
+if (shuffleBtn) {
+  shuffleBtn.addEventListener("click", () => {
+    renderFeed();
+  });
+}
+
+if (logoBtn) {
+  logoBtn.style.cursor = "pointer";
+  logoBtn.addEventListener("click", () => {
+    window.location.reload();
+  });
+}
 
 function random(min, max) {
   return Math.random() * (max - min) + min;
@@ -309,7 +355,7 @@ function createCard(anchor = null) {
   element.addEventListener("mouseenter", () => {
     hoverTimer = setTimeout(() => {
       element.classList.add("is-hovered");
-    }, 180);
+    }, 20);
   });
   element.addEventListener("mouseleave", () => {
     clearTimeout(hoverTimer);
