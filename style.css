@@ -205,55 +205,15 @@ header {
 #btns > button > svg {
   width: 24px;
   height: 24px;
+}
+
+#btns > button {
   color: var(--color-text);
+  transition: color 250ms ease;
 }
 
-.about > svg {
-  width: 24px;
-  height: 24px;
-  color: var(--color-text);
-}
-
-.about-wrapper {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-}
-
-.about-tooltip {
-  position: absolute;
-  top: calc(100% + 12px);
-  right: 0;
-  height: auto;
-
-  display: none;
-  width: 340px;
-  padding: 16px 18px;
-
-  background: var(--color-background);
-  border: 1px solid var(--color-border);
-  border-radius: 6px;
-
-  color: var(--color-text);
-  font-size: 13px;
-  line-height: 1.5;
-
-  text-align: left;
-  box-shadow: 0 8px 24px rgb(0 0 0 / 35%);
-  z-index: 1000;
-}
-
-.about-wrapper:hover .about-tooltip,
-.about-wrapper:focus-within .about-tooltip {
-  display: block;
-}
-
-.about-tooltip p {
-  margin-bottom: 12px;
-}
-
-.about-tooltip p:last-child {
-  margin-bottom: 0;
+#btns > .wave[aria-pressed="true"] {
+  color: red;
 }
 
 .ad-feed {

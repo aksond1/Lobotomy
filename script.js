@@ -8,6 +8,7 @@ const subscriptionClose = document.querySelector(".subscription-close");
 const subscriptionMessage = document.querySelector(".subscription-message");
 const messageClose = document.querySelector(".message-close");
 const shuffleBtn = document.querySelector(".shuffle");
+const waveBtn = document.querySelector(".wave");
 const logoBtn = document.querySelector("#logo");
 const themeToggle = document.querySelector(".theme-toggle");
 
@@ -113,6 +114,14 @@ let cellSize = 0;
 let screenWidth = 0;
 let screenHeight = 0;
 
+let waveActive = false;
+let waveTimeout = null;
+let animationFrame = null;
+
+const MIN_INTERVAL = 1800;
+const MAX_INTERVAL = 100;
+const WAVE_DURATION = 20000;
+
 const savedTheme = localStorage.getItem("theme");
 if (savedTheme) {
   document.documentElement.setAttribute("data-theme", savedTheme);
@@ -178,6 +187,46 @@ if (shuffleBtn) {
     renderFeed();
   });
 }
+
+function startWave() {
+  const startTime = performance.now();
+
+  function smootherstep(t) {
+    return t * t * t * (t * (t * 6 - 15) + 10);
+  }
+
+  function updateWave() {
+    if (!waveActive) return;
+
+    const elapsed = performance.now() - startTime;
+    const progress = (elapsed % WAVE_DURATION) / WAVE_DURATION;
+
+    const phase = progress < 0.5 ? progress * 2 : (1 - progress) * 2;
+
+    const wave = smootherstep(phase);
+
+    const interval = MIN_INTERVAL - wave * (MIN_INTERVAL - MAX_INTERVAL);
+
+    renderFeed();
+
+    waveTimeout = setTimeout(updateWave, interval);
+  }
+
+  updateWave();
+}
+
+waveBtn.addEventListener("click", () => {
+  waveActive = !waveActive;
+
+  waveBtn.setAttribute("aria-pressed", waveActive);
+  waveBtn.title = `Wave: ${waveActive ? "on" : "off"}`;
+
+  if (waveActive) {
+    startWave();
+  } else {
+    clearTimeout(waveTimeout);
+  }
+});
 
 if (logoBtn) {
   logoBtn.style.cursor = "pointer";
